@@ -1,0 +1,8 @@
+162543177
+Ashish Sheoran
+
+1. The difference between the copy and move operations
+
+During this workshop, I understand the major difference between copy and move semantics.
+As in copy operations, we only copy the data from one object to other object, without affecting the original object. While, in move operations, we move all the data from one object to other object, which causes data loss from the original object.
+

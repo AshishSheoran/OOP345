@@ -1,0 +1,46 @@
+Ashish Sheoran
+162543177
+
+—	What was learned during the workshop:
+
+	During the workshop, I learned how to create templated classes, functions, specialized template classes and functions, defining template constructors and functions outside of the class that it's in.
+	How to use one class template within another class template.
+
+1.)  The reason for specializing the sum() member function.
+
+	The specialization of sum() was necessary because the original sum:
+
+	V sum(const L& lbl, const V& val) const {
+            if(key() == lbl) {
+                return val + value();
+            }
+            return val;
+        }
+
+	Only assumes that the type of sum that was being passed is a number which can be added with a '+' natively. Specializing sum() such as:
+
+	 template<>
+   	 std::string SummableLVPair<std::string, std::string>::sum(const std::string& label, const std::string& val) const {
+        	if(key() == label) {
+         	   if(val == "") {
+         	       return value();
+         	   }
+         	   return val + "," + value();
+        	}
+        	return val;
+  	}
+
+	ensures that strings are properly 'concatenated' rather than attempted to be added natively.
+
+2.). The reason for specializing the initial value for a summation.
+
+	This again relates to the reason why we specialized some of the methods in the classes. The 2nd template argument could either be an integer or a string. 
+	By specializing initialValue, we can control what the safe empty value is for its initial value as shown in the following:
+
+	// Explicit specialization of LVList<std::string, std::string>
+	template<>
+    	std::string SummableLVPair<std::string, std::string>::initialValue = "";
+
+	// Explicit specialization of LVList<std::string, int>
+	template<>
+    	int SummableLVPair<std::string, int>::initialValue = 0;
